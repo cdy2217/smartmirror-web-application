@@ -4,7 +4,7 @@ var config = {
     greeting : ["SmartMirror"], // An array of greetings to randomly choose from
     // forcast.io
     forcast : {
-        key : "......", // Your forcast.io api key
+        key : "48236192a51bc52f6b4c7a4539ccb6ea", // Your forcast.io api key
         units : "auto" // See forcast.io documentation if you are getting the wrong units
     },
     // Calendar (An array of iCals)
@@ -14,11 +14,11 @@ var config = {
       maxDays: 365 // Number of days to display (Default is one year)
     },
     traffic: {
-      key : ".....", // Bing Maps API Key
+      key : "Ail-KEGup4WK0Fr8jNCgowP7tljmhqJYZBKxf98hdLfQyHV6Anjq9o-Vh81XwC8s", // Bing Maps API Key
       mode : "Transit", // Possibilities: Driving / Transit / Walking
       origin : "Suwon", // Start of your trip. Human readable address.
       destination : "Yangjae", // Destination of your trip. Human readable address.
-      name : "스마트커넥티드융합기술과정", // Name of your destination ex: "work"
+      name : "home", // Name of your destination ex: "work"
       reload_interval : 5 // Number of minutes the information is refreshed
     },
 
