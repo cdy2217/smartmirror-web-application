@@ -23,7 +23,7 @@ var config = {
     },
 
     youtube: {
-      key:"....."
+      key:"AIzaSyCm0JaJ8t1-RhXS61qiFingCXYr8-quHO4 "
     },
 
     subway: {
