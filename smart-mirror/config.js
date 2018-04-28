@@ -30,6 +30,6 @@ var config = {
       key:"....."
     },
     soundcloud: {
-    	key:"....."
+    	key:"vy2u1t34bo123bu41234yduv1234tb"
     }
 }
