@@ -27,7 +27,7 @@ var config = {
     },
 
     subway: {
-      key:"....."
+      key:"766649525a63647935345878656a67"
     },
     soundcloud: {
     	key:"vy2u1t34bo123bu41234yduv1234tb"
