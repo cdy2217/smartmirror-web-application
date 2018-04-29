@@ -16,9 +16,9 @@ var config = {
     traffic: {
       key : "Ail-KEGup4WK0Fr8jNCgowP7tljmhqJYZBKxf98hdLfQyHV6Anjq9o-Vh81XwC8s", // Bing Maps API Key
       mode : "Transit", // Possibilities: Driving / Transit / Walking
-      origin : "Suwon", // Start of your trip. Human readable address.
-      destination : "Yangjae", // Destination of your trip. Human readable address.
-      name : "home", // Name of your destination ex: "work"
+      origin : "Seoul", // Start of your trip. Human readable address.
+      destination : "Suwon", // Destination of your trip. Human readable address.
+      name : "Home", // Name of your destination ex: "work"
       reload_interval : 5 // Number of minutes the information is refreshed
     },
 
