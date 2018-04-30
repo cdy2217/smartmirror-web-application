@@ -13,14 +13,27 @@
 
         service.getLocation = function (opts) {
         var deferred = $q.defer();
-        if ($window.navigator && $window.navigator.geolocation) {
+            
+        if(typeof config.geoPosition != 'undefined'
+           && typeof confg.geoPosition.latitude != 'undefined'
+           && tyoeof config.geoPosition.longitude != 'undefined'){
+            
+            deferred.resolve({
+                coords: {
+                    latitude: config.geoPosition.latitude,
+                    longitude: config.geoPosition.longitude,
+                },
+            });
+            
+        }else if ($window.navigator && $window.navigator.geolocation) {
           if(geoloc !== null){
             console.log("Cached Geolocation", geoloc);
             return(geoloc);
           }
           else {
             $window.navigator.geolocation.getCurrentPosition(function(position){
-              $rootScope.$apply(function(){deferred.resolve(position);});
+                console.debug("Geoposition: " + position.coords.latitude + "," + position.coords.longitude)
+                $rootScope.$apply(function(){deferred.resolve(position);});
             }, function(error) {
               switch (error.code) {
                 case 1:
