@@ -8,20 +8,9 @@
     service.events = [];
 
     service.getCalendarEvents = function() {
-      var deferred = $q.defer();
-      
       service.events = [];
-      if (typeof cpnfig.calender != 'undefined'&& typeof config.calender.icals != 'undefined') {
-        loadFile(config.calender.icals).then(function(){
-          deferred.resolve();
-        }):
-      } else {
-        deferred.reject("No iCals defined");
-      }
-      return deferrde.promise;
+      return loadFile(config.calendar.icals);
     }
-    
-    
 
     var loadFile = function(urls) {
       var promises = [];
@@ -97,14 +86,6 @@
           else if (type.startsWith('DTEND')) {
             cur_event.end = makeDate(type, val);
           }
-          
-             // Subtract one second so that single-day events endon the same day
-          cur_event.endName = makeDate(type, val).subtract(1, 'seconds').calendar().toUpperCase();
-        }
-        if(cur_event.startName && cur_event.endName){
-          cur_event.label = cur_event.startName + " - " + cur.event.endName;
-        }     
-      
           //Convert timestamp
           else if (type == 'DTSTAMP') {
             //val = makeDate(type, val);
@@ -115,49 +96,29 @@
               .replace(/\\,/g, ',');
           }
 
-              //Add the value to our event object.     
-          if (type !== 'SUMMARY' || (type == 'SUMMARY' && cur_event['SUMMARY'] == undefined)) {
-            cur_event[type] = val;
-          }     
-          var keys = Object.keys(cur_event);
-          if (cur_event['SUMMARY'] !== undefined && cur_event['RRULE'] !== undefined &&
-              (keys.some(function (k) { return ~k.indexOf("DTSTART") })) &&
-              keys.some(function (k) { return ~k.indexOf("DTEND") })) {
+          //Add the value to our event object.
+          cur_event[type] = val;
+          if (cur_event['SUMMARY'] !== undefined && cur_event['RRULE'] !== undefined) {
             var options = new RRule.parseString(cur_event['RRULE']);
-            options.dtstart = cur_event.start.toDate();
-            var event_duration = cur_event.end.diff(cur_event.start, 'minutes');
-            var rule = new RRule(options);
+      			options.dtstart = cur_event.start.toDate();
+      			var rule = new RRule(options);
             var oneYear = new Date();
-            oneYear.setFullYear(oneYear.getFullYear() + 1);
-            var dates = rule.between(new Date(), oneYear, true, function (date, i) { return i < 10 });
-            for (var date in dates) {
+      			oneYear.setFullYear(oneYear.getFullYear() + 1);
+      			var dates = rule.between(new Date(), oneYear, true, function (date, i){return i < 10});
+      			for (var date in dates) {
               var recuring_event = {};
               recuring_event.SUMMARY = cur_event.SUMMARY;
-              var dt = new Date(dates[date]);
-              var startDate = moment(dt);
-              var endDate = moment(dt);
-              endDate.add(event_duration, 'minutes');
-              recuring_event.calendarName = calendarName;
+      				var dt = new Date(dates[date]);
+      				var startDate = moment(dt);
               recuring_event.start = startDate;
-              recuring_event.startName = startDate.calendar().toUpperCase();
-              recuring_event.end = endDate; 
-              recuring_event.endName = endDate.subtract(1, 'seconds').calendar().toUpperCase();
-              
-       if (recuring_event.startName && recuring_event.endName) {
-         if (recuring_event.startName == recuring_event.endName) {
-           recuring_event.label = recuring_event.startName
-         } else {         
-           recuring_event.label = recuring_event.startName + " - " + recuring_event.endName;
-         }
-       if(!contains(events,recuring_event)){
-        events.push(recuring_event);
+              recuring_event.end = startDate;
+              if(!contains(events, recuring_event)) {
+                events.push(recuring_event);
+              }
+      			}
           }
         }
       }
-    }
-  }
-          
-          
       //Add all of the extracted events to the CalendarService
       service.events.push.apply(service.events, events);
     }
