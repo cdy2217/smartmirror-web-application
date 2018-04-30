@@ -59,6 +59,7 @@
             var tick = $interval(updateTime, 1000); // 1초 마다
             updateTime();
 
+
             /** GPS 정보를 가져온다 */
             GeolocationService.getLocation({enableHighAccuracy: true}).then(function(geoposition){
                 console.log("Geoposition", geoposition);
@@ -68,20 +69,29 @@
 
             /** 현재 장소를 가져오며, 날씨 정보를 가져온다. */
             var refreshMirrorData = function() {
+
+                  //$scope.currentForcast = WeatherService.currentForcast();
+                  WeatherService.init().then(function(response){
+                    $scope.currentForcast = WeatherService.getForcast();
+                    //console.log("Current", $scope.currentForcast);
+                  },function(error){
+                    console.log(error);
+                  });
+
+                  //console.log("Temperature",$scope.currentForcast);
+                  //console.log("Weather Korean",$scope.currentForcast.wfKor)
+
+                  //console.log("Current forcast", $scope.currentForcast);
+
                 //Get our location and then get the weather for our location
+
                 GeolocationService.getLocation({enableHighAccuracy: true}).then(function(geoposition){
                     console.log("Geoposition", geoposition);
-                    WeatherService.init(geoposition).then(function() {
-                        $scope.currentForcast = WeatherService.currentForcast();
-                        $scope.weeklyForcast = WeatherService.weeklyForcast();
-                        $scope.hourlyForcast = WeatherService.hourlyForcast();
-                        console.log("Current", $scope.currentForcast);
-                        console.log("Weekly", $scope.weeklyForcast);
-                        console.log("Hourly", $scope.hourlyForcast);
-                    });
+
                 }, function(error){
                     console.log(error);
                 });
+
 
                 /** icals로 연동된 달력의 정보를 가져온다. */
                 CalendarService.getCalendarEvents().then(function(response) {
