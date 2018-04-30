@@ -16,12 +16,16 @@ var config = {
     traffic: {
       key : "Ail-KEGup4WK0Fr8jNCgowP7tljmhqJYZBKxf98hdLfQyHV6Anjq9o-Vh81XwC8s", // Bing Maps API Key
       mode : "Transit", // Possibilities: Driving / Transit / Walking
-      origin : "Seoul", // Start of your trip. Human readable address.
-      destination : "Suwon", // Destination of your trip. Human readable address.
-      name : "Home", // Name of your destination ex: "work"
+      origin : "Gongneung", // Start of your trip. Human readable address.
+      destination : "Gangnam", // Destination of your trip. Human readable address.
+      name : "서울과기대", // Name of your destination ex: "work"
       reload_interval : 5 // Number of minutes the information is refreshed
     },
-
+    
+    geoPosition: {
+        latitude : 37.6304778,
+        longitude : 127.090198
+    },
     youtube: {
       key:"AIzaSyCm0JaJ8t1-RhXS61qiFingCXYr8-quHO4 "
     },
